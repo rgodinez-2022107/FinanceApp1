@@ -1,0 +1,75 @@
+<div class="login-page">
+  <!-- Fondo de Puntos con Animación Flotante e Interactividad -->
+  <div class="interactive-dot-grid"></div>
+  <div class="interactive-dot-glow"></div>
+
+  <!-- Fondo con la Ola Original del Login -->
+  <div class="login-waves-container">
+    <div class="wave-line line-1"></div>
+    <div class="wave-line line-2"></div>
+  </div>
+
+  <!-- Tarjeta de Login -->
+  <div class="login-card">
+    <div class="brand">
+      <div class="brand-icon">₣</div>
+      <h1>FinanceApp</h1>
+      <p class="brand-subtitle">Acceso seguro a su plataforma financiera</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form" novalidate>
+      <div class="form-field">
+        <label for="email">Correo electrónico</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="usuario@empresa.com"
+          autocomplete="username"
+          [class.invalid]="email?.invalid && email?.touched"
+        />
+        <span class="field-error" *ngIf="email?.invalid && email?.touched">
+          <span *ngIf="email?.errors?.['required']">El correo es obligatorio.</span>
+          <span *ngIf="email?.errors?.['email']">Ingrese un correo válido.</span>
+        </span>
+      </div>
+
+      <div class="form-field">
+        <label for="password">Contraseña</label>
+        <div class="password-wrapper">
+          <input
+            id="password"
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="••••••••"
+            autocomplete="current-password"
+            [class.invalid]="password?.invalid && password?.touched"
+          />
+          <button
+            type="button"
+            class="toggle-visibility"
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+          >
+            {{ showPassword ? '🙈' : '👁' }}
+          </button>
+        </div>
+        <span class="field-error" *ngIf="password?.invalid && password?.touched">
+          <span *ngIf="password?.errors?.['required']">La contraseña es obligatoria.</span>
+          <span *ngIf="password?.errors?.['minlength']">Mínimo 6 caracteres.</span>
+        </span>
+      </div>
+
+      <div class="server-error" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Ingresar</span>
+        <span *ngIf="isLoading" class="spinner"></span>
+      </button>
+    </form>
+
+    <p class="footer-note">Acceso restringido a personal autorizado.</p>
+  </div>
+</div>

@@ -1,0 +1,150 @@
+<div class="dashboard-layout">
+  <!-- Fondo con Ondas Fluidas Estilo PS3 -->
+  <div class="ps3-waves-container">
+    <div class="wave wave-one"></div>
+    <div class="wave wave-two"></div>
+  </div>
+
+  <!-- Fondo de Puntos con Animación Flotante e Interactividad -->
+  <div class="interactive-dot-grid"></div>
+  <div class="interactive-dot-glow"></div>
+
+  <!-- Barra Lateral (Sidebar) -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">₣</div>
+      <div class="brand-text">
+        <h2>DayCash</h2>
+        <span>Premium Finance</span>
+      </div>
+    </div>
+
+    <div class="sidebar-action">
+      <button class="add-transaction-btn" (click)="addTransaction()">
+        <span>+</span> Add Transaction
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a routerLink="/dashboard" class="nav-item active">
+        <span class="icon">📊</span> Dashboard
+      </a>
+      <a routerLink="/statistics" class="nav-item">
+        <span class="icon">📈</span> Statistics
+      </a>
+      <a routerLink="/history" class="nav-item">
+        <span class="icon">🕒</span> History
+      </a>
+      <a routerLink="/settings" class="nav-item">
+        <span class="icon">⚙️</span> Settings
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <div class="avatar">UD</div>
+        <div class="user-info">
+          <span class="name">{{ userName }}</span>
+          <span class="role">Pro Member</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Contenido Principal -->
+  <main class="main-content">
+    <!-- Cabecera Superior -->
+    <header class="top-bar">
+      <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search transactions, insights..." />
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" title="Notificaciones">🔔</button>
+        <button class="icon-btn logout-action" (click)="logout()" title="Cerrar sesión">🚪</button>
+      </div>
+    </header>
+
+    <!-- Panel Dashboard -->
+    <div class="dashboard-container">
+      <div class="welcome-section">
+        <div>
+          <span class="section-tag">RESUMEN GENERAL</span>
+          <h1>Hola, {{ userName }}.</h1>
+        </div>
+        <div class="quick-actions">
+          <button class="action-pill income" (click)="addTransaction()">↓ Nuevo Ingreso</button>
+          <button class="action-pill expense" (click)="addTransaction()">↑ Nuevo Gasto</button>
+        </div>
+      </div>
+
+      <!-- Grid Principal de Estadísticas y Actividad -->
+      <div class="grid-stats">
+        <!-- Tarjeta de Balance General -->
+        <div class="card balance-card">
+          <div class="card-header">
+            <span class="card-title">Balance Total</span>
+            <button class="options-btn">•••</button>
+          </div>
+          <div class="balance-body">
+            <h2>{{ totalBalance }}</h2>
+            <span class="trend positive">~{{ balanceTrend }}</span>
+          </div>
+
+          <div class="progress-section">
+            <div class="progress-item">
+              <div class="progress-label">
+                <span>Ingreso Fijo</span>
+                <small>{{ fixedIncomeProgress }}% Completado</small>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill orange" [style.width.%]="fixedIncomeProgress"></div>
+              </div>
+            </div>
+
+            <div class="progress-item">
+              <div class="progress-label">
+                <span>Ingreso Variable</span>
+                <small>{{ variableIncomeProgress }}% Objetivo</small>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill dark-orange" [style.width.%]="variableIncomeProgress"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta de Actividad Reciente -->
+        <div class="card activity-card">
+          <div class="card-header">
+            <span class="card-title">Actividad</span>
+            <a href="javascript:void(0)" class="view-all">Ver todo</a>
+          </div>
+          <div class="activity-list">
+            <div class="activity-item" *ngFor="let item of recentActivities">
+              <div class="activity-icon" [ngClass]="item.type">
+                {{ item.type === 'income' ? '↓' : '↑' }}
+              </div>
+              <div class="activity-details">
+                <strong>{{ item.title }}</strong>
+                <small>{{ item.date }}</small>
+              </div>
+              <span class="activity-amount" [ngClass]="item.type">{{ item.amount }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección de Análisis de Tendencias -->
+      <div class="card trend-analysis-card">
+        <div class="trend-content">
+          <div class="trend-icon-box">💡</div>
+          <div class="trend-text">
+            <h3>Análisis de Tendencias</h3>
+            <p>Detectamos que tus <strong>Gastos hormiga aumentaron un 20%</strong> esta semana en comparación con el promedio mensual. Considera revisar tus suscripciones activas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,127 @@
+:root {
+  --color-navy: #0a192f;
+  --color-navy-light: #112240;
+  --color-navy-lighter: #1d3a5f;
+  --color-orange: #f39c12;
+  --color-orange-dark: #d68910;
+  --color-white: #ffffff;
+  --color-text-muted: #8892b0;
+  --color-danger: #e74c3c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Evita barras de desplazamiento por las animaciones */
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--color-navy);
+  color: var(--color-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* --- CONTENEDOR DE GRÁFICAS DE FONDO --- */
+.background-charts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Permite hacer clic a través del fondo */
+  z-index: 0;
+  overflow: hidden;
+}
+
+.chart-line, .chart-line-secondary {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+}
+
+/* Animación de desplazamiento y brillo para las líneas de las gráficas */
+.animated-path {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: drawLine 6s ease-in-out infinite alternate, pulseGlow 3s ease-in-out infinite;
+}
+
+.animated-path-delayed {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: drawLine 8s ease-in-out infinite alternate 1s;
+}
+
+@keyframes drawLine {
+  0% {
+    stroke-dashoffset: 2000;
+    transform: translateY(20px);
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    transform: translateY(-20px);
+    opacity: 0.2;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(243, 156, 18, 0.2)); }
+  50% { filter: drop-shadow(0 0 10px rgba(243, 156, 18, 0.6)); }
+}
+
+/* --- TARJETA DE LOGIN (Encima del fondo) --- */
+.login-card {
+  position: relative;
+  z-index: 1; /* Asegura que esté por encima de las gráficas */
+  background-color: var(--color-navy-light);
+  border: 1px solid var(--color-navy-lighter);
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  animation: fadeInCard 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInCard {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilos de inputs y botones de tu referencia */
+input {
+  font-family: inherit;
+  background-color: var(--color-navy);
+  border: 1px solid var(--color-navy-lighter);
+  color: var(--color-white);
+  padding: 12px 16px;
+  border-radius: 6px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: var(--color-orange);
+  box-shadow: 0 0 8px rgba(243, 156, 18, 0.3);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
