@@ -1,0 +1,8 @@
+<!-- frontend/src/app/shared/session-expired-modal/session-expired-modal.component.html -->
+<div class="modal-overlay" *ngIf="isVisible$ | async">
+  <div class="modal-box">
+    <h2>Sesión expirada</h2>
+    <p>Tu sesión ha finalizado por seguridad. Por favor, inicia sesión nuevamente.</p>
+    <button class="modal-btn" (click)="onAccept()">Ir al login</button>
+  </div>
+</div>
